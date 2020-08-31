@@ -3,7 +3,7 @@ npm run dev:%PLATFORM%
 * 发布uni-app
 npm run build:%PLATFORM%
 * 新建框架
-vue create -p dcloudio/uni-preset-vue %PLATFORM%
+vue create -p dcloudio/uni-preset-vue Name 
 * %PLATFORM% 可取值如下：
 
 01. app-plus                app平台生成打包资源（支持npm run build:app-plus，可用于持续集成。不支持run，运行调试仍需在HBuilderX中操作）
