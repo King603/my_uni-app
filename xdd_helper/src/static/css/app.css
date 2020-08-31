@@ -1,5 +1,4 @@
 @charset "UTF-8";
-
 .tab {
   width: 100%;
   background: white;
@@ -391,6 +390,7 @@ view {
 }
 
 /*按钮*/
+
 .btn {
   width: 600upx;
   height: 80upx;
@@ -971,6 +971,7 @@ view {
 }
 
 /*字体*/
+
 .my-font-7 {
   font-size: 14upx !important;
 }
@@ -1715,8 +1716,6 @@ view {
   background-size: cover;
   background-position: center !important;
 }
-
-
 
 .my-p-close {
   position: absolute;
