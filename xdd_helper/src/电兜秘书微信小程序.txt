@@ -1,0 +1,17 @@
+小程序名称：电兜秘书（代理端+商户端微信小程序）
+管理人：黄建莺先生
+微信号：yeamoon
+
+AppID(小程序ID)
+wxde110d2cbdfd6fdf
+
+AppSecret(小程序密钥)
+5d11855b8ee5eb96ca35bc6ca95d9099
+
+客服热线：4000591559
+
+配置文件在
+\util\config.js
+可以配置连接服务器地址
+可以配置图片地址
+可以配置appId

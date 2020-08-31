@@ -17,3 +17,12 @@ vue create -p dcloudio/uni-preset-vue Name
 09. quickapp-webview        快应用通用
 10. quickapp-webview-union  快应用联盟
 11. quickapp-webview-huawei 快应用华为
+
+
+hxcStorePlatform  充电宝代理商户端        https://192.168.124.88:8443/svn/hxcStorePlatform/
+hxcWxClient       充电宝用户端 微信       https://192.168.124.88:8443/svn/hxcWxClient/
+hxcZfbClient      充电宝用户端 支付宝     https://192.168.124.88:8443/svn/hxcZfbClient/
+
+hxcStorePlatform  小电兜充电宝代理商户端   https://192.168.124.88:8443/svn/xddHelper/
+xddWxClient       电兜用户端 微信         https://192.168.124.88:8443/svn/xddWxClient/
+xddZfbClient      小电兜用户端 支付宝     https://192.168.124.88:8443/svn/xddZfbClient/

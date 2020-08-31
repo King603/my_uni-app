@@ -1,0 +1,225 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/login",
+			"style": {
+				"navigationBarTextStyle": "black",
+				"navigationStyle": "custom"
+			}
+		}, {
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTextStyle": "black",
+				"navigationStyle": "custom"
+			}
+		}, {
+			"path": "pages/deal/login/login",
+			"style": {
+				"navigationBarTitleText": "《平台使用协议》"
+			}
+		}, {
+			"path": "pages/home_page/online/online",
+			"style": {}
+		}, {
+			"path": "pages/home_page/search/search_dev",
+			"style": {
+				"navigationBarTitleText": "搜索"
+			}
+		}, {
+			"path": "pages/team/agency/agency",
+			"style": {
+				"navigationBarTitleText": "我的代理"
+			}
+		}, {
+			"path": "pages/team/com/com",
+			"style": {
+				"navigationBarTitleText": "我的商户"
+			}
+		}, {
+			"path": "pages/team/junior/junior",
+			"style": {
+				"navigationBarTitleText": "设备详情"
+			}
+		}, {
+			"path": "pages/team/agency-edit/index",
+			"style": {
+				"navigationBarTitleText": "编辑代理"
+			}
+		}, {
+			"path": "pages/team/edit/alone-dev",
+			"style": {
+				"navigationBarTitleText": "分配设备"
+			}
+		}, {
+			"path": "pages/team/edit/batch"
+		}, {
+			"path": "pages/team/edit/withdrawal-rules",
+			"style": {
+				"navigationBarTitleText": "设置提现规则"
+			}
+		}, {
+			"path": "pages/team/edit/amend-agency",
+			"style": {
+				"navigationBarTitleText": "修改下级代理"
+			}
+		}, {
+			"path": "pages/team/edit/earnings",
+			"style": {
+				"navigationBarTitleText": "收益明细"
+			}
+		}, {
+			"path": "pages/team/com/info",
+			"style": {
+				"navigationBarTitleText": "商户信息"
+			}
+		}, {
+			"path": "pages/team/com/add",
+			"style": {
+				"navigationBarTitleText": "商户信息"
+			}
+		}, {
+			"path": "pages/medic/com",
+			"style": {
+				"navigationBarTitleText": "我的商户"
+			}
+		}, {
+			"path": "pages/team/edit/adv-per",
+			"style": {
+				"navigationBarTitleText": "设置广告权限"
+			}
+		}, {
+			"path": "pages/team/edit/log",
+			"style": {
+				"navigationBarTitleText": "设备日志"
+			}
+		}, {
+			"path": "pages/my/service/about",
+			"style": {
+				"navigationBarTitleText": "关于我们"
+			}
+		}, {
+			"path": "pages/my/personal/info",
+			"style": {
+				"navigationBarTitleText": "个人信息修改"
+			}
+		}, {
+			"path": "pages/my/personal/password",
+			"style": {
+				"navigationBarTitleText": "设置提现密码"
+			}
+		}, {
+			"path": "pages/my/personal/withdrawal",
+			"style": {
+				"navigationBarTitleText": "余额提现"
+			}
+		},  {
+			"path": "pages/my/service/model",
+			"style": {
+				"navigationBarTitleText": "型号说明"
+			}
+		}, {
+			"path": "pages/my/service/ad",
+			"style": {
+				"navigationBarTitleText": "招商广告"
+			}
+		}, {
+			"path": "pages/my/service/join",
+			"style": {
+				"navigationBarTitleText": "合伙加盟"
+			}
+		}, {
+			"path": "pages/my/service/dredge",
+			"style": {
+				"navigationBarTitleText": "开通广告收益"
+			}
+		}, {
+			"path": "pages/my/service/getTV",
+			"style": {
+				"navigationBarTitleText": "广告收益"
+			}
+		},{
+			"path": "pages/home_page/agency/public",
+			"style": {
+				"navigationBarTitleText": "添加代理"
+			}
+		}, {
+			"path": "pages/home_page/search/result",
+			"style": {
+				"navigationBarTitleText": "搜索订单"
+			}
+		}, {
+			"path": "pages/my/personal/recordDetial",
+			"style": {
+				"navigationBarTitleText": "账单记录"
+			}
+		}, {
+			"path": "pages/home_page/feedback",
+			"style": {
+				"navigationBarTitleText": "设备报修"
+			}
+		}, {
+			"path": "pages/my/personal/recharge",
+			"style": {
+				"navigationBarTitleText": "充值中心"
+			}
+		}, {
+			"path": "pages/stat/bill",
+			"style": {
+				"navigationBarTitleText": "收益账单"
+			}
+		}, {
+			"path": "pages/stat/junior",
+			"style": {
+				"navigationBarTitleText": "下级订单"
+			}
+		}, {
+			"path": "pages/team/edit/list",
+			"style": {
+				"navigationBarTitleText": "商户列表"
+			}
+		}, {
+			"path": "pages/team/com/deviceManage",
+			"style": {
+				"navigationBarTitleText": "设备管理"
+			}
+		}, {
+			"path": "pages/my/service/share",
+			"style": {
+				"navigationBarTitleText": "快速分享"
+			}
+		}
+        ,{
+            "path" : "pages/team/com/writeListSet",
+            "style" : {"navigationBarTitleText": "白名单设置"}
+        }
+        ,{
+            "path" : "pages/team/com/writeList",
+            "style" : {"navigationBarTitleText": "白名单列表"}
+        }
+        ,{
+            "path" : "pages/team/com/writeListQrcAdd",
+            "style" : {"navigationBarTitleText": "加入白名单"}
+        }
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "电兜助手",
+		"navigationBarBackgroundColor": "#FFFFFF",
+		"backgroundColor": "#F8F8F8"
+	},
+	"permission": {
+		"scope.userLocation": {
+			"desc": "你的位置信息将用于小程序位置接口的效果展示" // 高速公路行驶持续后台定位
+		}
+	},
+	"condition" : { //模式配置，仅开发期间生效
+		"current": 0, //当前激活的模式(list 的索引项)
+		"list": [
+			{
+				"name": "", //模式名称
+				"path": "", //启动页面，必选
+				"query": "" //启动参数，在页面的onLoad函数里面得到
+			}
+		]
+	}
+}

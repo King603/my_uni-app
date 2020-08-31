@@ -1,0 +1,17 @@
+小程序名称：小电兜（支付宝端微信小程序）
+管理人：黄建莺先生
+微信号：yeamoon
+
+AppID
+wxd2fc2d9c7ca31a57
+
+AppSecret
+43b9dc0d1991433a5d109efad81ebb5b
+
+客服热线：4000591559
+
+配置文件在
+\util\config.js
+可以配置连接服务器地址
+可以配置图片地址
+可以配置appId

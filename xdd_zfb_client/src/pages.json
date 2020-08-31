@@ -1,0 +1,133 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "小电兜",
+				"navigationBarBackgroundColor":"#F4B249",
+				"navigationBarTextStyle":"white"
+			}
+		},{
+			"path":"pages/my/my",
+			"style": {
+				"navigationBarTitleText": "小电兜",
+				"navigationBarBackgroundColor":"#F4B249",
+				"navigationBarTextStyle":"white"
+			}
+		},{
+			"path":"pages/my/record",
+			"style":{
+				"navigationBarTitleText": "历史订单",
+				"navigationBarBackgroundColor":"#FFFFFF",
+				"navigationBarTextStyle":"black",
+				"enablePullDownRefresh": true
+			}
+		},{
+			"path":"pages/index/search"
+		},{
+			"path":"pages/my/feedback"
+		},{
+			"path":"pages/my/help",
+			"style":{
+				"navigationBarTitleText": "帮助中心",
+				"navigationBarBackgroundColor":"#FFFFFF",
+				"navigationBarTextStyle":"black"
+			}
+		},{
+			"path":"pages/index/rentInfo",
+			"style":{
+				"navigationBarBackgroundColor":"#FFFFFF",
+				"navigationBarTextStyle":"black"
+			}
+		},{
+			"path":"pages/my/topup",
+			"style":{
+				"navigationBarTitleText": "充值中心",
+				"navigationBarBackgroundColor":"#FFFFFF",
+				"navigationBarTextStyle":"black"
+			}
+		},
+		{
+			"path":"pages/my/integral",
+			"style":{
+				"navigationBarTitleText": "积分中心",
+				"navigationBarBackgroundColor":"#FFFFFF",
+				"navigationBarTextStyle":"black"
+			}
+		},
+		{
+			"path":"pages/my/message",
+			"style":{
+				"navigationBarTitleText": "消息中心",
+				"navigationBarBackgroundColor":"#FFFFFF",
+				"navigationBarTextStyle":"black"
+			}
+		},
+		{
+			"path":"pages/index/lease",
+			"style":{
+				"navigationBarBackgroundColor":"#FFFFFF",
+				"navigationBarTextStyle":"black"
+			}
+		},
+		{
+            "path" : "pages/test/test",
+            "style" : {
+				"navigationBarTitleText": "测试",
+				"navigationBarBackgroundColor":"#FFFFFF",
+				"navigationBarTextStyle":"black"
+			}
+        },
+		{
+            "path" : "pages/test/eject",
+            "style" : {
+				"navigationBarTitleText": "租借成功",
+				"navigationBarBackgroundColor":"#FFFFFF",
+				"navigationBarTextStyle":"black"
+			}
+        }
+        ,{
+            "path" : "pages/index/addWhiteList",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/index/buyPayInfo",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/index/lineCharge",
+            "style" : {}
+        }
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle":"white",
+		"navigationBarTitleText": "小电兜",
+		"navigationBarBackgroundColor": "#F4B249",
+		"backgroundColor": "#F8F8F8"
+	},
+	"condition": { //模式配置，仅开发期间生效
+	    "current": 0, //当前激活的模式（list 的索引项）
+	    "list": [
+			{
+	            "name": "问题反馈", //模式名称
+	            "path": "pages/my/feedback", //启动页面，必选
+	            "query": "interval=4000&autoplay=false" //启动参数，在页面的onLoad函数里面得到。
+	        },
+			{
+			    "name": "弹宝页面", //模式名称
+			    "path": "pages/test/eject", //启动页面，必选
+			    "query": "interval=4000&autoplay=false" //启动参数，在页面的onLoad函数里面得到。
+			},
+			{
+			    "name": "跳转页", //模式名称
+			    "path": "pages/index/rentInfo", //启动页面，必选
+			    "query": "interval=4000&autoplay=false" //启动参数，在页面的onLoad函数里面得到。
+			},
+	        {
+	            "name": "我的", //模式名称
+	            "path": "pages/my/my", //启动页面，必选
+	            "query": "interval=4000&autoplay=false" //启动参数，在页面的onLoad函数里面得到。
+	        }
+	    ]
+	}
+}
