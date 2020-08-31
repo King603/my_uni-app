@@ -37,95 +37,95 @@
 </template>
 
 <script>
-	import loading from '@/components/xuan-loading/xuan-loading.vue'
-	import uniNav from "../../../components/uni-nav-bar/uni-nav-bar.vue";
-	import uniStatusBar from "../../../components/uni-status-bar/uni-status-bar.vue"
-	import QSPopup from '@/components/QS-popup/QS-popup.vue';
-	export default {
-		data() {
-			return {
-				title: '铺货',
-				tab: [{
-					img: 'https://haoxiangchong.oss-cn-shenzhen.aliyuncs.com/SGRSTGgFUf_wx023ed2d5e1a87230.o6zAJs5b-NeM9YlE0KCOW3BfXCAY.QvX2ERS63Ehu4da90bc32df1e1e7f4792636ac64a92c.png',
-					title: '扫码铺货',
-					txt:'扫描设备二维码，立即铺设设备'
-				}, {
-					img: 'https://haoxiangchong.oss-cn-shenzhen.aliyuncs.com/xwiRaZpEeH_wx023ed2d5e1a87230.o6zAJs5b-NeM9YlE0KCOW3BfXCAY.mGVLvy5IpSwr9e8a4415eeac3b7f44c039cd8f6c7b52.png',
-					title: '批量铺设',
-					txt:'批量选择，更快完成设备铺设'
-				}],
-				devId:'',
-				type:'',
-				deviceIds:[]
+import loading from '../../../components/xuan-loading/xuan-loading.vue'
+import uniNav from "../../../components/uni-nav-bar/uni-nav-bar.vue";
+import uniStatusBar from "../../../components/uni-status-bar/uni-status-bar.vue"
+import QSPopup from '../../../components/QS-popup/QS-popup.vue';
+export default {
+	data() {
+		return {
+			title: '铺货',
+			tab: [{
+				img: 'https://haoxiangchong.oss-cn-shenzhen.aliyuncs.com/SGRSTGgFUf_wx023ed2d5e1a87230.o6zAJs5b-NeM9YlE0KCOW3BfXCAY.QvX2ERS63Ehu4da90bc32df1e1e7f4792636ac64a92c.png',
+				title: '扫码铺货',
+				txt:'扫描设备二维码，立即铺设设备'
+			}, {
+				img: 'https://haoxiangchong.oss-cn-shenzhen.aliyuncs.com/xwiRaZpEeH_wx023ed2d5e1a87230.o6zAJs5b-NeM9YlE0KCOW3BfXCAY.mGVLvy5IpSwr9e8a4415eeac3b7f44c039cd8f6c7b52.png',
+				title: '批量铺设',
+				txt:'批量选择，更快完成设备铺设'
+			}],
+			devId:'',
+			type:'',
+			deviceIds:[]
+		}
+	},
+	components: {
+		uniNav,
+		uniStatusBar,
+		QSPopup,
+		loading
+	},
+	mounted() {
+		// this.open();
+		// setTimeout(()=>{
+		// 	this.close();
+		// },2000)
+	},
+	computed: {
+
+	},
+	onLoad() {
+
+	},
+	methods: {
+		onOK(ref){
+			uni.navigateTo({
+				url: "/pages/team/com/add?deviceIds=" + this.deviceIds + "&&deviceType=" + this.type,
+				success: () => {
+					this.deviceIds = []
+					this.type=''
+					this.$refs['QSPopup'].hide();
+				}
+			})
+			// uni.showToast({
+			// 	title:"铺设成功！"
+			// })
+		},
+		onTab(e){
+			if(e===0){
+				uni.scanCode({
+				    success:(res)=> {
+						let result = res.result;
+						let array= result.split('=');
+						// console.log(array);
+						let str = array.pop();
+						let dev = array.pop();
+						let devArray = dev.split('&&');
+						let devNo = devArray.shift();
+						this.deviceIds.push(devNo);
+				        this.devId= devNo;
+						this.type=str;
+						this.$refs['QSPopup'].show();
+				    }
+				});
+			}
+			if(e===1){
+				uni.navigateTo({
+					url:"/pages/team/edit/alone-dev?type="+2
+				})
 			}
 		},
-		components: {
-			uniNav,
-			uniStatusBar,
-			QSPopup,
-			loading
+		close:function(){
+		    this.$refs.loading.close();
 		},
-		mounted() {
-			// this.open();
-			// setTimeout(()=>{
-			// 	this.close();
-			// },2000)
+		open:function(){
+		    this.$refs.loading.open();
 		},
-		computed: {
-	
+		callback(){
+		    // console.log("回掉");
 		},
-		onLoad() {
-	
-		},
-		methods: {
-			onOK(ref){
-				uni.navigateTo({
-					url: "/pages/team/com/add?deviceIds=" + this.deviceIds + "&&deviceType=" + this.type,
-					success: () => {
-						this.deviceIds = []
-						this.type=''
-						this.$refs['QSPopup'].hide();
-					}
-				})
-				// uni.showToast({
-				// 	title:"铺设成功！"
-				// })
-			},
-			onTab(e){
-				if(e===0){
-					uni.scanCode({
-					    success:(res)=> {
-							let result = res.result;
-							let array= result.split('=');
-							// console.log(array);
-							let str = array.pop();
-							let dev = array.pop();
-							let devArray = dev.split('&&');
-							let devNo = devArray.shift();
-							this.deviceIds.push(devNo);
-					        this.devId= devNo;
-							this.type=str;
-							this.$refs['QSPopup'].show();
-					    }
-					});
-				}
-				if(e===1){
-					uni.navigateTo({
-						url:"/pages/team/edit/alone-dev?type="+2
-					})
-				}
-			},
-			close:function(){
-			    this.$refs.loading.close();
-			},
-			open:function(){
-			    this.$refs.loading.open();
-			},
-			callback(){
-			    // console.log("回掉");
-			},
-		}
 	}
+}
 </script>
 
 <style>

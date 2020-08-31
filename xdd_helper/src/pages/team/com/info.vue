@@ -356,8 +356,8 @@
 </template>
 
 <script>
-	import goTop from "@/components/goTop/goTop"
-	import req from "@/util/req.js"
+	import goTop from "../../../components/goTop/goTop"
+	import req from "../../../util/req.js"
 	export default {
 		data() {
 			return {
@@ -413,14 +413,14 @@
 		onLoad(options) {
 			// console.log(options)
 			this.id = Number(options.id) || 0
-            // 获取商户类型
-            var params={};
-            req.request('GET', params, '/proxy/business/get/business-type', '加载中',(res)=>{
-            	if(res.statusCode === 200){
-            		console.log(res.data.data)
-            		this.array=res.data.data;
-            	}
-            })
+      // 获取商户类型
+      var params={};
+      req.request('GET', params, '/proxy/business/get/business-type', '加载中',(res)=>{
+      	if(res.statusCode === 200){
+      		console.log(res.data.data)
+      		this.array=res.data.data;
+      	}
+      })
 		},
 		onPageScroll(res) {
 			this.scrollTop = res.scrollTop

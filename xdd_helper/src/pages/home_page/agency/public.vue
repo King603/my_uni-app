@@ -189,434 +189,419 @@
 
 <script>
 	import uploadImg from "@/components/amazarashi-uploadimg/uploadImg.vue"
-	import req from "@/util/req.js"
-	export default {
-		data() {
-			return {
-				id: 2,
-				agree: true,
-				name: "",
-				mobile: "",
-				nickname: "",
-				pass: "",
-				email: "",
-				address: "",
-				address1: "",
-				idFront: "",
-				idReverse: "",
-				cardFront: "",
-				cardReverse: "",
-				businessFront: "",
-				businessReverse: "",
-				businessName: "",
-				latitude: "",
-				longitude: "",
-				index:0,
-				array:null,
-				type:"餐厅",
-				current:'',
-				idNumber:"",
-				bankCard:""
-			}
-		},
-		components: {
-			uploadImg
-		},
-		computed: {
+import req from "@/util/req.js"
+export default {
+  data() {
+    return {
+      id: 2,
+      agree: true,
+      name: "",
+      mobile: "",
+      nickname: "",
+      pass: "",
+      email: "",
+      address: "",
+      address1: "",
+      idFront: "",
+      idReverse: "",
+      cardFront: "",
+      cardReverse: "",
+      businessFront: "",
+      businessReverse: "",
+      businessName: "",
+      latitude: "",
+      longitude: "",
+      index: 0,
+      array: null,
+      type: "餐厅",
+      current: '',
+      idNumber: "",
+      bankCard: ""
+    }
+  },
+  components: {
+    uploadImg
+  },
+  computed: {
 
-		},
-		onLoad(options) {
-			this.id = Number(options.id)
-			if (this.id === 0) {
-				uni.setNavigationBarTitle({
-					title: '新增代理'
-				})
-			}
-			if (this.id === 2) {
-				uni.setNavigationBarTitle({
-					title: '新增商户'
-				})
-			}
-			// 获取商户类型 
-			var params={};
-			req.request('GET', params, '/proxy/business/get/business-type', '加载中',(res)=>{
-				if(res.statusCode === 200){
-					console.log(res.data.data)
-					this.array=res.data.data;
-				}
-			})
-		},
-		methods: {
-			bindPickerChange(e){
-				this.index=Number(e.detail.value)
-				this.type=this.array[this.index]
-			},
-			onType(e){
-				this.current=e
-				if(e===0){
-					this.type="RESTAURANT"
-				}else{
-					this.type="HOTEL"
-				}
-			},
-			//获取地理位置
-			onAddress(e) {
-				uni.getLocation({
-					type: 'wgs84',
-					success: (res) => {
-						var latitude = res.latitude
-						var longitude = res.longitude
-						var speed = res.speed
-						var accuracy = res.accuracy;
-						this.getLocal(latitude, longitude)
-					},
-					fail: function(res) {
-						console.log('fail' + JSON.stringify(res))
-					}
-				})
-			},
-			// 获取当前地理位置
-			getLocal: function(latitude, longitude) {
-				var that = this
-				uni.chooseLocation({
-					success: (res) => {
-						// console.log(res, "location")
-						that.hasLocation = true,
-							that.location = {
-								longitude: res.longitude,
-								latitude: res.latitude
-							},
-							that.address = res.address,
-							that.latitude = res.latitude,
-							that.longitude = res.longitude
-						var regex = /^(北京市|天津市|重庆市|上海市|香港特别行政区|澳门特别行政区)/;
-						var REGION_PROVINCE = [];
-						var addressBean = {
-							REGION_PROVINCE: null,
-							REGION_COUNTRY: null,
-							REGION_CITY: null,
-							ADDRESS: null
-						};
+  },
+  onLoad(options) {
+    this.id = Number(options.id);
+    switch (this.id) {
+      case 0: uni.setNavigationBarTitle({ title: '新增代理' }); break;
+      case 2: uni.setNavigationBarTitle({ title: '新增商户' }); break;
+    }
+    // 获取商户类型 
+    let params = {};
+    req.request('GET', params, '/proxy/business/get/business-type', '加载中', (res) => {
+      if (res.statusCode === 200) {
+        console.log(res.data.data)
+        this.array = res.data.data;
+      }
+    })
+  },
+  methods: {
+    bindPickerChange(e) {
+      this.index = Number(e.detail.value)
+      this.type = this.array[this.index]
+    },
+    onType(e) {
+      this.current = e;
+      this.type = e === 0 ? "RESTAURANT" : "HOTEL";
+    },
+    //获取地理位置
+    onAddress(e) {
+      uni.getLocation({
+        type: 'wgs84',
+        success: (res) => {
+          let latitude = res.latitude
+          let longitude = res.longitude
+          let speed = res.speed
+          let accuracy = res.accuracy;
+          this.getLocal(latitude, longitude);
+        },
+        fail: function (res) {
+          console.log('fail' + JSON.stringify(res))
+        }
+      })
+    },
+    // 获取当前地理位置
+    getLocal: function (latitude, longitude) {
+      let that = this;
+      uni.chooseLocation({
+        success: (res) => {
+          // console.log(res, "location")
+          that.hasLocation = true;
+          let { longitude, latitude } = res;
+          that.location = { longitude, latitude };
+          that.address = res.address;
+          that.latitude = res.latitude;
+          that.longitude = res.longitude;
+          let regex = /^(北京市|天津市|重庆市|上海市|香港特别行政区|澳门特别行政区)/;
+          let REGION_PROVINCE = [];
+          let addressBean = {
+            REGION_PROVINCE: null,
+            REGION_COUNTRY: null,
+            REGION_CITY: null,
+            ADDRESS: null
+          };
 
-						function regexAddressBean(address, addressBean) {
-							regex = /^(.*?[市州]|.*?地区|.*?特别行政区)(.*?[市区县])(.*?)$/g;
-							var addxress = regex.exec(address);
-							addressBean.REGION_CITY = addxress[1];
-							addressBean.REGION_COUNTRY = addxress[2];
-							addressBean.ADDRESS = addxress[3] + "(" + res.name + ")";
-							that.addxress = addxress
-						}
-						if (!(REGION_PROVINCE = regex.exec(res.address))) {
-							regex = /^(.*?(省|自治区))(.*?)$/;
-							REGION_PROVINCE = regex.exec(res.address);
-							addressBean.REGION_PROVINCE = REGION_PROVINCE[1];
-							regexAddressBean(REGION_PROVINCE[3], addressBean);
-						} else {
-							addressBean.REGION_PROVINCE = REGION_PROVINCE[1];
-							regexAddressBean(res.address, addressBean);
-						}
-						that.ADDRESS_1_STR = addressBean.REGION_PROVINCE + " " +
-							addressBean.REGION_CITY + "" +
-							addressBean.REGION_COUNTRY
-						that.addressBean = addressBean;
-					},
-					fail: function(res) {
-						console.log(res);
-					},
-					complete: function(res) {
-						// console.log(res);
-					}
-				});
-			},
-			onMer() {
-				if (this.idNumber === "") {
-					uni.showToast({
-						title: "您没有填身份证哦~",
-						icon: "none"
-					})
-				}
-				if (this.bankCard === "") {
-					uni.showToast({
-						title: "您没有填银行卡哦~",
-						icon: "none"
-					})
-				}
-				if (this.name === "") {
-					uni.showToast({
-						title: "您没有填姓名哦~",
-						icon: "none"
-					})
-				}
-				if(this.type===""){
-					uni.showToast({
-						title: "您没有填商户类型哦~",
-						icon: "none"
-					})
-				}
-				if (this.address === "") {
-					uni.showToast({
-						title: "您没有填地址哦~",
-						icon: "none"
-					})
-				}
-				if (this.email === "") {
-					uni.showToast({
-						title: "您没有填邮箱哦~",
-						icon: "none"
-					})
-				}
-				if (this.nickname === "") {
-					uni.showToast({
-						title: "您没有填用户名哦~",
-						icon: "none"
-					})
-				}
-				if (this.mobile === "") {
-					uni.showToast({
-						title: "您没有填手机号哦~",
-						icon: "none"
-					})
-				}
-				if (!(/^1[3456789]\d{9}$/.test(this.mobile))) {
-					uni.showToast({
-						title: '您输入的号码有误，请重填',
-						icon: 'none'
-					})
-					return false;
-				}
-				if (this.pass === "") {
-					uni.showToast({
-						title: "您没有填密码哦~",
-						icon: "none"
-					})
-				}
-				if (this.businessFront === "") {
-					uni.showToast({
-						title: "您没有填合作协议哦~",
-						icon: "none"
-					})
-				}
-				if (this.businessReverse === "") {
-					uni.showToast({
-						title: "您没有填门头照片哦~",
-						icon: "none"
-					})
-				}
-				if (this.businessName === "") {
-					uni.showToast({
-						title: "您没有填商户名哦~",
-						icon: "none"
-					})
-				}
-				if (this.latitude === "" || this.longitude === "") {
-					uni.showToast({
-						title: "您没有填经纬度哦~",
-						icon: "none"
-					})
-				}
-				if (this.name !== "" && this.email !== "" && this.businessName !== ""  && this.businessReverse !==
-					"" && this.latitude !== "" && this.longitude !== "" && this.address !== "" && this.pass !== "" && this.mobile !==
-					"" && this.nickname !== "" && this.businessFront !== "" &&this.idNumber !== "" &&this.bankCard !== "") {
-					let params = {
-						addressLatitude: this.latitude,
-						addressLongitude: this.longitude,
-						address: this.address,
-						email: this.email,
-						password: this.pass,
-						phone: this.mobile,
-						name: this.nickname,
-						userName: this.name,
-						agreementUrl: this.businessFront,
-						bankCardNumber:this.bankCard,
-						logoUrl: this.businessReverse,
-						idCardNumber:this.idNumber,
-						type: this.type,
-						businessName: this.businessName,
-					}
-					req.request('POST', params, '/proxy/business', '加载中', (res) => {
-						console.log(res)
-						if (res.statusCode === 200) {
-							uni.navigateBack({
-								delta: 1,
-								success: () => {
-									uni.showToast({
-										title: "添加成功！",
-										icon: "success"
-									})
-								}
-							})
-						} else {
-							uni.showToast({
-								title: res.data.message,
-								icon: "none"
-							})
-						}
-					})
-				}
-			},
-			onAgency() {
-				if (this.name === "") {
-					uni.showToast({
-						title: "您没有填姓名哦~",
-						icon: "none"
-					})
-				}
-				if (this.address === "") {
-					uni.showToast({
-						title: "您没有填地址哦~",
-						icon: "none"
-					})
-				}
-				if (this.email === "") {
-					uni.showToast({
-						title: "您没有填邮箱哦~",
-						icon: "none"
-					})
-				}
-				if (this.cardFront === "") {
-					uni.showToast({
-						title: "您没有填银行卡正面哦~",
-						icon: "none"
-					})
-				}
-				if (this.cardReverse === "") {
-					uni.showToast({
-						title: "您没有填银行卡反面哦~",
-						icon: "none"
-					})
-				}
-				if (this.nickname === "") {
-					uni.showToast({
-						title: "您没有填用户名哦~",
-						icon: "none"
-					})
-				}
-				if (this.mobile === "") {
-					uni.showToast({
-						title: "您没有填手机号哦~",
-						icon: "none"
-					})
-				}
-				if (!(/^1[3456789]\d{9}$/.test(this.mobile))) {
-					uni.showToast({
-						title: '您输入的号码有误，请重填',
-						icon: 'none'
-					})
-					return false;
-				}
-				if (this.pass === "") {
-					uni.showToast({
-						title: "您没有填密码哦~",
-						icon: "none"
-					})
-				}
-				if (this.idFront === "") {
-					uni.showToast({
-						title: "您没有填身份证正面哦~",
-						icon: "none"
-					})
-				}
-				if (this.idReverse === "") {
-					uni.showToast({
-						title: "您没有填身份证反面哦~",
-						icon: "none"
-					})
-				}
-				if (this.name !== "" && this.email !== "" && this.cardFront !== "" && this.cardReverse !== "" && this.idFront !==
-					"" && this.idReverse !== "" && this.address !== "" && this.pass !== "" && this.mobile !== "" && this.nickname !==
-					"") {
-					let params = {
-						address: this.address,
-						bankCardImageBack: this.cardReverse,
-						bankCardImageFront: this.cardFront,
-						idCardImageBack: this.idReverse,
-						idCardImageFront: this.idFront,
-						mail: this.email,
-						password: this.pass,
-						phone: this.mobile,
-						proxyName: this.nickname,
-						userName: this.name
-					}
-					req.request('POST', params, '/proxy/api/proxy/sub/create', '加载中', (res) => {
-						console.log(res)
-						if (res.statusCode === 200) {
-							uni.navigateTo({
-								url: "/pages/team/agency/agency",
-								success: () => {
-									uni.showToast({
-										title: "添加成功！",
-										icon: "success"
-									})
-								}
-							})
-						} else {
-							uni.showToast({
-								title: res.data.message,
-								icon: "none"
-							})
-						}
-					})
-				}
-			},
-			onBusinessReverse(e) {
-				this.businessReverse = e.src
-			},
-			onBusinessFront(e) {
-				this.businessFront = e.src
-			},
-			onCardReverse(e) {
-				this.cardReverse = e.src
-			},
-			onCardFront(e) {
-				this.cardFront = e.src
-			},
-			onIdReverse(e) {
-				this.idReverse = e.src
-			},
-			onIdFront(e) {
-				this.idFront = e.src
-			},
-			blurAddress(e) {
-				let val = e.detail.value
-				this.address = val
-			},
-			blueEmail(e) {
-				let val = e.detail.value
-				this.email = val
-			},
-			blurIdCard(e){
-				let val = e.detail.value
-				this.idNumber = val
-			},
-			blurBankCard(e){
-				let val = e.detail.value
-				this.bankCard = val
-			},
-			blurPass(e) {
-				let val = e.detail.value
-				this.pass = val
-			},
-			blurBusinessName(e) {
-				let val = e.detail.value
-				this.businessName = val
-			},
-			blurNickName(e) {
-				let val = e.detail.value
-				this.nickname = val
-			},
-			blurMobile(e) {
-				let val = e.detail.value
-				this.mobile = val
-			},
-			blurName(e) {
-				let val = e.detail.value
-				this.name = val
-			},
-			onAgree() {
-				this.agree = !this.agree
-			},
-		}
-	}
+          function regexAddressBean(address, addressBean) {
+            regex = /^(.*?[市州]|.*?地区|.*?特别行政区)(.*?[市区县])(.*?)$/g;
+            let addxress = regex.exec(address);
+            addressBean.REGION_CITY = addxress[1];
+            addressBean.REGION_COUNTRY = addxress[2];
+            addressBean.ADDRESS = addxress[3] + "(" + res.name + ")";
+            that.addxress = addxress
+          }
+          if (!(REGION_PROVINCE = regex.exec(res.address))) {
+            regex = /^(.*?(省|自治区))(.*?)$/;
+            REGION_PROVINCE = regex.exec(res.address);
+            addressBean.REGION_PROVINCE = REGION_PROVINCE[1];
+            regexAddressBean(REGION_PROVINCE[3], addressBean);
+          } else {
+            addressBean.REGION_PROVINCE = REGION_PROVINCE[1];
+            regexAddressBean(res.address, addressBean);
+          }
+          that.ADDRESS_1_STR = addressBean.REGION_PROVINCE + " " +
+            addressBean.REGION_CITY + "" +
+            addressBean.REGION_COUNTRY
+          that.addressBean = addressBean;
+        },
+        fail: function (res) {
+          console.log(res);
+        },
+        complete: function (res) {
+          // console.log(res);
+        }
+      });
+    },
+    onMer() {
+      switch ("") {
+        case this.idNumber:
+          uni.showToast({
+            title: "您没有填身份证哦~",
+            icon: "none"
+          });
+          break;
+        case this.bankCard:
+          uni.showToast({
+            title: "您没有填银行卡哦~",
+            icon: "none"
+          });
+          break;
+        case this.name:
+          uni.showToast({
+            title: "您没有填姓名哦~",
+            icon: "none"
+          });
+          break;
+        case this.type:
+          uni.showToast({
+            title: "您没有填商户类型哦~",
+            icon: "none"
+          });
+          break;
+        case this.address:
+          uni.showToast({
+            title: "您没有填地址哦~",
+            icon: "none"
+          });
+          break;
+        case this.email:
+          uni.showToast({
+            title: "您没有填邮箱哦~",
+            icon: "none"
+          });
+          break;
+        case this.nickname:
+          uni.showToast({
+            title: "您没有填用户名哦~",
+            icon: "none"
+          });
+          break;
+        case this.mobile:
+          uni.showToast({
+            title: "您没有填手机号哦~",
+            icon: "none"
+          });
+          break;
+        case this.pass:
+          uni.showToast({
+            title: "您没有填密码哦~",
+            icon: "none"
+          });
+          break;
+        case this.businessFront:
+          uni.showToast({
+            title: "您没有填合作协议哦~",
+            icon: "none"
+          });
+          break;
+        case this.businessReverse:
+          uni.showToast({
+            title: "您没有填门头照片哦~",
+            icon: "none"
+          });
+          break;
+        case this.businessName:
+          uni.showToast({
+            title: "您没有填商户名哦~",
+            icon: "none"
+          });
+          break;
+        case this.latitude:
+        case this.longitude:
+          uni.showToast({
+            title: "您没有填经纬度哦~",
+            icon: "none"
+          });
+          break;
+      }
+      if (!(/^1[3456789]\d{9}$/.test(this.mobile))) {
+        uni.showToast({
+          title: '您输入的号码有误，请重填',
+          icon: 'none'
+        });
+        return false;
+      }
+      if (this.name !== "" && this.email !== "" && this.businessName !== "" && this.businessReverse !==
+        "" && this.latitude !== "" && this.longitude !== "" && this.address !== "" && this.pass !== "" && this.mobile !==
+        "" && this.nickname !== "" && this.businessFront !== "" && this.idNumber !== "" && this.bankCard !== "") {
+        let params = {
+          addressLatitude: this.latitude,
+          addressLongitude: this.longitude,
+          address: this.address,
+          email: this.email,
+          password: this.pass,
+          phone: this.mobile,
+          name: this.nickname,
+          userName: this.name,
+          agreementUrl: this.businessFront,
+          bankCardNumber: this.bankCard,
+          logoUrl: this.businessReverse,
+          idCardNumber: this.idNumber,
+          type: this.type,
+          businessName: this.businessName,
+        }
+        req.request('POST', params, '/proxy/business', '加载中', (res) => {
+          console.log(res)
+          if (res.statusCode === 200) {
+            uni.navigateBack({
+              delta: 1,
+              success: () => {
+                uni.showToast({
+                  title: "添加成功！",
+                  icon: "success"
+                })
+              }
+            })
+          } else {
+            uni.showToast({
+              title: res.data.message,
+              icon: "none"
+            })
+          }
+        })
+      }
+    },
+    onAgency() {
+      switch ("") {
+        case this.name:
+          uni.showToast({
+            title: "您没有填姓名哦~",
+            icon: "none"
+          });
+          break;
+        case this.address:
+          uni.showToast({
+            title: "您没有填地址哦~",
+            icon: "none"
+          });
+          break;
+        case this.email:
+          uni.showToast({
+            title: "您没有填邮箱哦~",
+            icon: "none"
+          });
+          break;
+        case this.cardFront:
+          uni.showToast({
+            title: "您没有填银行卡正面哦~",
+            icon: "none"
+          });
+          break;
+        case this.cardReverse:
+          uni.showToast({
+            title: "您没有填银行卡反面哦~",
+            icon: "none"
+          });
+          break;
+        case this.nickname:
+          uni.showToast({
+            title: "您没有填用户名哦~",
+            icon: "none"
+          });
+          break;
+        case this.mobile:
+          uni.showToast({
+            title: "您没有填手机号哦~",
+            icon: "none"
+          });
+          break;
+        case this.pass:
+          uni.showToast({
+            title: "您没有填密码哦~",
+            icon: "none"
+          });
+          break;
+        case this.idFront:
+          uni.showToast({
+            title: "您没有填身份证正面哦~",
+            icon: "none"
+          });
+          break;
+        case this.idReverse:
+          uni.showToast({
+            title: "您没有填身份证反面哦~",
+            icon: "none"
+          });
+          break;
+      }
+      if (!(/^1[3456789]\d{9}$/.test(this.mobile))) {
+        uni.showToast({
+          title: '您输入的号码有误，请重填',
+          icon: 'none'
+        })
+        return false;
+      }
+      if (this.name !== "" && this.email !== "" && this.cardFront !== "" && this.cardReverse !== "" && this.idFront !==
+        "" && this.idReverse !== "" && this.address !== "" && this.pass !== "" && this.mobile !== "" && this.nickname !==
+        "") {
+        let params = {
+          address: this.address,
+          bankCardImageBack: this.cardReverse,
+          bankCardImageFront: this.cardFront,
+          idCardImageBack: this.idReverse,
+          idCardImageFront: this.idFront,
+          mail: this.email,
+          password: this.pass,
+          phone: this.mobile,
+          proxyName: this.nickname,
+          userName: this.name
+        }
+        req.request('POST', params, '/proxy/api/proxy/sub/create', '加载中', (res) => {
+          console.log(res)
+          if (res.statusCode === 200) {
+            uni.navigateTo({
+              url: "/pages/team/agency/agency",
+              success: () => {
+                uni.showToast({
+                  title: "添加成功！",
+                  icon: "success"
+                })
+              }
+            })
+          } else {
+            uni.showToast({
+              title: res.data.message,
+              icon: "none"
+            })
+          }
+        })
+      }
+    },
+    onBusinessReverse(e) {
+      this.businessReverse = e.src
+    },
+    onBusinessFront(e) {
+      this.businessFront = e.src
+    },
+    onCardReverse(e) {
+      this.cardReverse = e.src
+    },
+    onCardFront(e) {
+      this.cardFront = e.src
+    },
+    onIdReverse(e) {
+      this.idReverse = e.src
+    },
+    onIdFront(e) {
+      this.idFront = e.src
+    },
+    blurAddress(e) {
+      this.address = e.detail.value;
+    },
+    blueEmail(e) {
+      let val = e.detail.value
+      this.email = val
+    },
+    blurIdCard(e) {
+      this.idNumber = e.detail.value;
+    },
+    blurBankCard(e) {
+      this.bankCard = e.detail.value;
+    },
+    blurPass(e) {
+      this.pass = e.detail.value;
+    },
+    blurBusinessName(e) {
+      this.businessName = e.detail.value;
+    },
+    blurNickName(e) {
+      this.nickname = e.detail.value;
+    },
+    blurMobile(e) {
+      this.mobile = e.detail.value;
+    },
+    blurName(e) {
+      this.name = e.detail.value;
+    },
+    onAgree() {
+      this.agree = !this.agree;
+    },
+  }
+}
 </script>
 
 <style>

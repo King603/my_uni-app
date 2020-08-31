@@ -116,12 +116,14 @@
 				isBusiness:false,
 				title: '我的',
 				title1:'个人页',
-				swiper: ['https://haoxiangchong.oss-cn-shenzhen.aliyuncs.com/UByGVWiCOx_wx023ed2d5e1a87230.o6zAJs5b-NeM9YlE0KCOW3BfXCAY.SdX2EwXCNqHcedd0dcd8b2c278f870f785c30d11d4b7.png',
+				swiper: [
+          'https://haoxiangchong.oss-cn-shenzhen.aliyuncs.com/UByGVWiCOx_wx023ed2d5e1a87230.o6zAJs5b-NeM9YlE0KCOW3BfXCAY.SdX2EwXCNqHcedd0dcd8b2c278f870f785c30d11d4b7.png',
 					'https://haoxiangchong.oss-cn-shenzhen.aliyuncs.com/UByGVWiCOx_wx023ed2d5e1a87230.o6zAJs5b-NeM9YlE0KCOW3BfXCAY.SdX2EwXCNqHcedd0dcd8b2c278f870f785c30d11d4b7.png',
 					'https://haoxiangchong.oss-cn-shenzhen.aliyuncs.com/UByGVWiCOx_wx023ed2d5e1a87230.o6zAJs5b-NeM9YlE0KCOW3BfXCAY.SdX2EwXCNqHcedd0dcd8b2c278f870f785c30d11d4b7.png',
 					'https://haoxiangchong.oss-cn-shenzhen.aliyuncs.com/UByGVWiCOx_wx023ed2d5e1a87230.o6zAJs5b-NeM9YlE0KCOW3BfXCAY.SdX2EwXCNqHcedd0dcd8b2c278f870f785c30d11d4b7.png'
 				],
-				swiper1: ['https://haoxiangchong.oss-cn-shenzhen.aliyuncs.com/GOPfqppryG_wx023ed2d5e1a87230.o6zAJs5b-NeM9YlE0KCOW3BfXCAY.xrLTOVJEg3Ev9383215f667cc747bea5b69269699da8.png',
+				swiper1: [
+          'https://haoxiangchong.oss-cn-shenzhen.aliyuncs.com/GOPfqppryG_wx023ed2d5e1a87230.o6zAJs5b-NeM9YlE0KCOW3BfXCAY.xrLTOVJEg3Ev9383215f667cc747bea5b69269699da8.png',
 					'https://haoxiangchong.oss-cn-shenzhen.aliyuncs.com/GOPfqppryG_wx023ed2d5e1a87230.o6zAJs5b-NeM9YlE0KCOW3BfXCAY.xrLTOVJEg3Ev9383215f667cc747bea5b69269699da8.png',
 					'https://haoxiangchong.oss-cn-shenzhen.aliyuncs.com/GOPfqppryG_wx023ed2d5e1a87230.o6zAJs5b-NeM9YlE0KCOW3BfXCAY.xrLTOVJEg3Ev9383215f667cc747bea5b69269699da8.png',
 					'https://haoxiangchong.oss-cn-shenzhen.aliyuncs.com/GOPfqppryG_wx023ed2d5e1a87230.o6zAJs5b-NeM9YlE0KCOW3BfXCAY.xrLTOVJEg3Ev9383215f667cc747bea5b69269699da8.png',
@@ -246,85 +248,75 @@
 				})
 			},
 			onIndex(e) {
-				if (e === 0) {
+        switch(e){
+				case 0:
 					uni.navigateTo({
 						url: "/pages/my/service/about"
-					})
-				}
-				if (e === 1) {
+					});
+				  break;
+				case 1:
 					uni.navigateTo({
 						url: "/pages/my/service/share"
-					})
-				}
-				if (e === 2) {
+					});
+				  break;
+				case 2:
 					uni.navigateTo({
 						url: "/pages/my/service/model"
-					})
-				}
-				if (e === 3) {
+					});
+				  break;
+				case 3:
 					uni.navigateTo({
 						url: "/pages/my/service/ad"
-					})
-				}
-				if (e === 4 && this.isBusiness==false) {
+					});
+				  break;
+				case 4: if(this.isBusiness==false) 
 					uni.navigateTo({
 						url: "/pages/my/service/join"
-					})
-				}
-				if (e === 7 && this.isBusiness==false) {
+					});
+				  break;
+				case 7: if(this.isBusiness==false) 
 					uni.navigateTo({
 						url: "/pages/my/service/getTV"
-					})
-				}
+					});
+          break;
+        }
 			},
 			onIndex1(e) {
-				if (e === 0) {
-					uni.navigateTo({
-						url: "/pages/my/service/about"
-					})
-				}
-				if (e === 1) {
-					uni.navigateTo({
-						url: "/pages/my/service/share"
-					})
-				}
-				if (e === 2) {
-					uni.navigateTo({
-						url: "/pages/my/service/model"
-					})
-				}
-				if (e === 3) {
-					uni.navigateTo({
-						url: "/pages/my/service/ad"
-					})
-				}
+        switch(e){
+          case 0: uni.navigateTo({url: "/pages/my/service/about"}); break;
+          case 1: uni.navigateTo({url: "/pages/my/service/share"}); break;
+          case 2: uni.navigateTo({url: "/pages/my/service/share"}); break;
+          case 3: uni.navigateTo({url: "/pages/my/service/ad"}); break;
+        }
 			},
 			onWithrawal() {
 				uni.navigateTo({
 					url: "/pages/my/personal/withdrawal"
-				})
+				});
 			},
 			onInfo() {
 				uni.navigateTo({
 					url: "/pages/my/personal/info"
-				})
+				});
 			},
 			onRecharge() {
 				uni.navigateTo({
 					url: "/pages/my/personal/recharge"
-				})
+				});
 			},
 			onPassword(e) {
-				if (e.currentTarget.dataset.id == "0") {
-					uni.navigateTo({
-						url: "/pages/my/personal/password?id=" + 0
-					})
-				}
-				if (e.currentTarget.dataset.id == "1") {
-					uni.navigateTo({
-						url: "/pages/my/personal/password?id=" + 1
-					})
-				}
+        switch(parseInt(e.currentTarget.dataset.id)){
+          case 0:
+            uni.navigateTo({
+						  url: "/pages/my/personal/password?id=" + 0
+					  });
+            break;
+          case 1:
+            uni.navigateTo({
+						  url: "/pages/my/personal/password?id=" + 1
+					  });
+            break;
+        }
 			},
 			close: function() {
 				this.$refs.loading.close();
@@ -336,11 +328,7 @@
 				// console.log("回掉");
 			},
 			onChoose() {
-				if (this.onchoose) {
-					this.onchoose = false;
-				} else {
-					this.onchoose = true;
-				}
+        this.onchoose = !this.onchoose;
 			}
 		}
 	}

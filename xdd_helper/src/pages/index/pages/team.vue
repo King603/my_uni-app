@@ -90,10 +90,10 @@
 </template>
 
 <script>
-import loading from '@/components/xuan-loading/xuan-loading.vue';
+import loading from '../../../components/xuan-loading/xuan-loading.vue';
 import uniNav from '../../../components/uni-nav-bar/uni-nav-bar.vue';
 import uniStatusBar from '../../../components/uni-status-bar/uni-status-bar.vue';
-import req from '@/util/req.js';
+import req from '../../../util/req.js';
 export default {
 	data() {
 		return {

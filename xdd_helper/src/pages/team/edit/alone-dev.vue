@@ -101,8 +101,13 @@
 				uni.setNavigationBarTitle({
 					title: '铺设设备'
         })
-        this.onSearch()
-			}
+        this.onSearch();
+			}else if(this.type ===0){
+        uni.setNavigationBarTitle({
+          title: "分配设备"
+        })
+        this.onTab(0);
+      }
 			// if(this.isBusiness===true){
 				
 			// }else{
